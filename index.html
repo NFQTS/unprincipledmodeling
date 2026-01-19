@@ -1,229 +1,669 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Creator Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-  body {
-    min-height: 100vh;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(123,97,255,0.15), transparent 40%),
-      radial-gradient(circle at 80% 30%, rgba(0,224,255,0.12), transparent 45%),
-      radial-gradient(circle at top, #120026 0%, #040007 60%, #000 100%);
-    color: #f4f7ff;
-    display: grid;
-    place-items: center;
-    overflow-x: hidden;
-  }
+body {
+min-height: 100vh;
+background:
+radial-gradient(circle at 20% 20%, rgba(123,97,255,0.15), transparent 40%),
+radial-gradient(circle at 80% 30%, rgba(0,224,255,0.12), transparent 45%),
+radial-gradient(circle at top, #120026 0%, #040007 60%, #000 100%);
+color: #f4f7ff;
+overflow-x: hidden;
+}
 
-  .app {
-    width: 100%;
-    max-width: 1100px;
-    padding: 3rem 2rem 4rem;
-    display: grid;
-    gap: 3.5rem;
-  }
+/* UPLOAD STATE */
+.upload-state {
+min-height: 100vh;
+display: grid;
+place-items: center;
+padding: 2rem;
+text-align: center;
+}
 
-  /* ---------- HERO ---------- */
-  .hero {
-    text-align: center;
-    position: relative;
-  }
+.upload-state h1 {
+font-size: clamp(2.5rem, 6vw, 4.5rem);
+font-weight: 800;
+letter-spacing: -0.04em;
+margin-bottom: 1rem;
+line-height: 1;
+background: linear-gradient(135deg, #ffffff, #cfd4ff 40%, #7b61ff 70%, #00e0ff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+filter: drop-shadow(0 0 40px rgba(123,97,255,0.4));
+animation: glow 3s ease-in-out infinite;
+}
 
-  .hero h1 {
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    margin-bottom: 0.75rem;
-    line-height: 1.05;
-    background: linear-gradient(135deg, #ffffff, #cfd4ff 40%, #7b61ff 70%, #00e0ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 30px rgba(123,97,255,0.35));
-  }
+@keyframes glow {
+0%, 100% { filter: drop-shadow(0 0 40px rgba(123,97,255,0.4)); }
+50% { filter: drop-shadow(0 0 60px rgba(123,97,255,0.6)); }
+}
 
-  .hero p {
-    color: #c9cbe5;
-    font-size: 1.1rem;
-    max-width: 640px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.6;
-  }
+.upload-state p {
+color: #c9cbe5;
+font-size: 1.25rem;
+max-width: 600px;
+margin: 0 auto 3rem;
+line-height: 1.6;
+}
 
-  .upload-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    background: linear-gradient(135deg, #7b61ff, #00e0ff);
-    color: #000;
-    padding: 1rem 2.5rem;
-    border-radius: 999px;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    border: none;
-    cursor: pointer;
-    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-    box-shadow:
-      0 0 30px rgba(123,97,255,0.35),
-      0 0 60px rgba(0,224,255,0.15);
-    position: relative;
-    overflow: hidden;
-  }
+.upload-btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 0.8rem;
+background: linear-gradient(135deg, #7b61ff, #00e0ff);
+color: #000;
+padding: 1.3rem 3rem;
+border-radius: 999px;
+font-size: 1.1rem;
+font-weight: 700;
+letter-spacing: 0.02em;
+border: none;
+cursor: pointer;
+transition: all .3s ease;
+box-shadow:
+0 0 40px rgba(123,97,255,0.5),
+0 0 80px rgba(0,224,255,0.2);
+position: relative;
+overflow: hidden;
+}
 
-  .upload-btn::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.6), transparent 70%);
-    transform: translateX(-100%);
-    transition: transform .6s ease;
-  }
+.upload-btn::after {
+content: “”;
+position: absolute;
+inset: 0;
+background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.6), transparent 70%);
+transform: translateX(-100%);
+transition: transform .6s ease;
+}
 
-  .upload-btn:hover::after {
-    transform: translateX(100%);
-  }
+.upload-btn:hover::after {
+transform: translateX(100%);
+}
 
-  .upload-btn:hover {
-    transform: translateY(-2px) scale(1.02);
-    filter: brightness(1.1);
-    box-shadow:
-      0 0 45px rgba(123,97,255,0.55),
-      0 0 80px rgba(0,224,255,0.25);
-  }
+.upload-btn:hover {
+transform: translateY(-3px) scale(1.03);
+filter: brightness(1.15);
+box-shadow:
+0 0 60px rgba(123,97,255,0.7),
+0 0 120px rgba(0,224,255,0.3);
+}
 
-  input[type="file"] {
-    display: none;
-  }
+input[type=“file”] {
+display: none;
+}
 
-  /* ---------- DASHBOARD ---------- */
-  .dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.75rem;
-  }
+/* DASHBOARD STATE */
+.dashboard-state {
+display: none;
+min-height: 100vh;
+padding: 2rem;
+}
 
-  .card {
-    background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
-    border-radius: 22px;
-    padding: 1.9rem;
-    backdrop-filter: blur(18px);
-    box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,0.08),
-      0 10px 40px rgba(0,0,0,0.5);
-    transition: transform .25s ease, box-shadow .25s ease;
-    position: relative;
-    overflow: hidden;
-  }
+.dashboard-state.active {
+display: block;
+}
 
-  .card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 20% 10%, rgba(123,97,255,0.25), transparent 45%);
-    opacity: 0.6;
-    pointer-events: none;
-  }
+.container {
+max-width: 1400px;
+margin: 0 auto;
+}
 
-  .card:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,0.14),
-      0 18px 60px rgba(0,0,0,0.7);
-  }
+/* HEADER */
+.header {
+margin-bottom: 3rem;
+position: relative;
+}
 
-  .label {
-    font-size: 0.85rem;
-    color: #9aa0d1;
-    margin-bottom: 0.6rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
+.profile-section {
+display: flex;
+align-items: center;
+gap: 2rem;
+margin-bottom: 2rem;
+}
 
-  .value {
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: #ffffff;
-  }
+.profile-image {
+width: 140px;
+height: 140px;
+border-radius: 24px;
+object-fit: cover;
+border: 3px solid rgba(123,97,255,0.5);
+box-shadow: 0 0 60px rgba(123,97,255,0.4);
+}
 
-  .sub {
-    font-size: 0.8rem;
-    color: #7f85c5;
-    margin-top: 0.35rem;
-  }
+.profile-info h1 {
+font-size: 2.5rem;
+font-weight: 800;
+margin-bottom: 0.5rem;
+background: linear-gradient(135deg, #ffffff, #7b61ff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
 
-  /* ---------- FOOTER ---------- */
-  footer {
-    text-align: center;
-    font-size: 0.85rem;
-    color: #777;
-    margin-top: 1.5rem;
-  }
+.profile-info p {
+color: #9aa0d1;
+font-size: 1.1rem;
+}
 
-  footer a {
-    color: #aaa;
-    text-decoration: none;
-    margin: 0 0.5rem;
-    transition: color .2s ease;
-  }
+.add-more-btn {
+background: rgba(255,255,255,0.08);
+border: 1px solid rgba(255,255,255,0.12);
+color: #fff;
+padding: 0.9rem 1.8rem;
+border-radius: 16px;
+font-size: 0.95rem;
+font-weight: 600;
+cursor: pointer;
+transition: all .2s ease;
+margin-top: 1.5rem;
+}
 
-  footer a:hover {
-    color: #fff;
-  }
+.add-more-btn:hover {
+background: rgba(255,255,255,0.12);
+border-color: rgba(255,255,255,0.2);
+transform: translateY(-2px);
+}
+
+/* MEGA STATS */
+.mega-stats {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 2rem;
+margin-bottom: 3rem;
+}
+
+.mega-card {
+background: linear-gradient(135deg, rgba(123,97,255,0.12), rgba(0,224,255,0.08));
+border-radius: 28px;
+padding: 2.5rem;
+backdrop-filter: blur(20px);
+border: 1px solid rgba(255,255,255,0.1);
+box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+position: relative;
+overflow: hidden;
+transition: all .3s ease;
+}
+
+.mega-card::before {
+content: “”;
+position: absolute;
+inset: 0;
+background: radial-gradient(circle at 30% 20%, rgba(123,97,255,0.3), transparent 50%);
+opacity: 0;
+transition: opacity .3s ease;
+}
+
+.mega-card:hover::before {
+opacity: 1;
+}
+
+.mega-card:hover {
+transform: translateY(-8px) scale(1.02);
+box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+border-color: rgba(255,255,255,0.2);
+}
+
+.mega-label {
+font-size: 0.9rem;
+color: #9aa0d1;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+margin-bottom: 1rem;
+}
+
+.mega-value {
+font-size: 3.5rem;
+font-weight: 800;
+letter-spacing: -0.03em;
+background: linear-gradient(135deg, #ffffff, #00e0ff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+line-height: 1;
+margin-bottom: 0.5rem;
+}
+
+.mega-sub {
+color: #7f85c5;
+font-size: 1rem;
+}
+
+/* GALLERY */
+.gallery-section {
+margin-top: 3rem;
+}
+
+.gallery-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 2rem;
+}
+
+.gallery-header h2 {
+font-size: 2rem;
+font-weight: 700;
+}
+
+.filter-tabs {
+display: flex;
+gap: 1rem;
+background: rgba(255,255,255,0.05);
+padding: 0.5rem;
+border-radius: 16px;
+}
+
+.filter-tab {
+padding: 0.7rem 1.5rem;
+border-radius: 12px;
+border: none;
+background: transparent;
+color: #9aa0d1;
+font-weight: 600;
+cursor: pointer;
+transition: all .2s ease;
+}
+
+.filter-tab.active {
+background: linear-gradient(135deg, #7b61ff, #00e0ff);
+color: #000;
+}
+
+.gallery-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+gap: 2rem;
+}
+
+.asset-card {
+background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+border-radius: 24px;
+overflow: hidden;
+backdrop-filter: blur(20px);
+border: 1px solid rgba(255,255,255,0.08);
+box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+transition: all .3s ease;
+position: relative;
+}
+
+.asset-card:hover {
+transform: translateY(-8px);
+box-shadow: 0 25px 70px rgba(0,0,0,0.7);
+border-color: rgba(255,255,255,0.15);
+}
+
+.asset-preview {
+width: 100%;
+height: 240px;
+object-fit: cover;
+background: linear-gradient(135deg, rgba(123,97,255,0.2), rgba(0,224,255,0.2));
+display: grid;
+place-items: center;
+font-size: 4rem;
+position: relative;
+}
+
+.asset-preview img, .asset-preview video {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.asset-type-badge {
+position: absolute;
+top: 1rem;
+right: 1rem;
+background: rgba(0,0,0,0.7);
+backdrop-filter: blur(10px);
+color: #fff;
+padding: 0.5rem 1rem;
+border-radius: 12px;
+font-size: 0.75rem;
+text-transform: uppercase;
+font-weight: 700;
+letter-spacing: 0.05em;
+}
+
+.asset-content {
+padding: 1.8rem;
+}
+
+.asset-name {
+font-size: 1.3rem;
+font-weight: 700;
+margin-bottom: 1.5rem;
+color: #fff;
+}
+
+.asset-stats {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1.2rem;
+}
+
+.stat-item {
+text-align: center;
+padding: 1rem;
+background: rgba(255,255,255,0.04);
+border-radius: 14px;
+border: 1px solid rgba(255,255,255,0.06);
+}
+
+.stat-label {
+font-size: 0.75rem;
+color: #9aa0d1;
+text-transform: uppercase;
+letter-spacing: 0.08em;
+margin-bottom: 0.4rem;
+}
+
+.stat-value {
+font-size: 1.4rem;
+font-weight: 700;
+color: #fff;
+}
+
+.stat-value.earnings {
+background: linear-gradient(135deg, #00e0ff, #7b61ff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+font-size: 1.6rem;
+}
+
+.delete-icon {
+position: absolute;
+top: 1rem;
+left: 1rem;
+width: 36px;
+height: 36px;
+background: rgba(255,50,50,0.3);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255,50,50,0.5);
+border-radius: 10px;
+display: grid;
+place-items: center;
+cursor: pointer;
+transition: all .2s ease;
+color: #ff6b6b;
+font-weight: 700;
+}
+
+.delete-icon:hover {
+background: rgba(255,50,50,0.5);
+transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+.profile-section {
+flex-direction: column;
+text-align: center;
+}
+
+```
+.gallery-header {
+  flex-direction: column;
+  align-items: start;
+  gap: 1rem;
+}
+
+.mega-stats {
+  grid-template-columns: 1fr;
+}
+
+.gallery-grid {
+  grid-template-columns: 1fr;
+}
+```
+
+}
 </style>
+
 </head>
 <body>
-  <div class="app">
-
-    <!-- HERO -->
-    <section class="hero">
+  <!-- UPLOAD STATE -->
+  <div class="upload-state" id="uploadState">
+    <div>
       <h1>Own Your Presence.</h1>
-      <p>
-        Drop in a photo or a short clip.
-      </p>
+      <p>Upload your photos and videos to create your custom creator dashboard</p>
+      <label for="upload" class="upload-btn">
+        <span>📸</span>
+        Upload Assets
+      </label>
+      <input id="upload" type="file" accept="image/*,video/*" multiple />
+    </div>
+  </div>
 
-      <label for="upload" class="upload-btn">Upload</label>
-      <input id="upload" type="file" accept="image/*,video/*,audio/*" multiple />
-    </section>
+  <!-- DASHBOARD STATE -->
 
-    <!-- DASHBOARD -->
-    <section class="dashboard">
-      <div class="card">
-        <div class="label">Human Models</div>
-        <div class="value">2</div>
-        <div class="sub">Active profiles</div>
+  <div class="dashboard-state" id="dashboardState">
+    <div class="container">
+      <!-- HEADER -->
+      <div class="header">
+        <div class="profile-section">
+          <img id="profileImage" class="profile-image" src="" alt="Profile" />
+          <div class="profile-info">
+            <h1 id="creatorName">Your Creator Profile</h1>
+            <p id="assetCount">0 assets in portfolio</p>
+          </div>
+        </div>
+        <label for="addMore" class="add-more-btn">+ Add More Assets</label>
+        <input id="addMore" type="file" accept="image/*,video/*" multiple />
       </div>
 
-      <div class="card">
-        <div class="label">Animal Models</div>
-        <div class="value">2</div>
-        <div class="sub">Pets NEED Work Too...</div>
-      </div>
+```
+  <!-- MEGA STATS -->
+  <div class="mega-stats">
+    <div class="mega-card">
+      <div class="mega-label">Total Earnings</div>
+      <div class="mega-value" id="totalEarnings">$0</div>
+      <div class="mega-sub">All time revenue</div>
+    </div>
 
-      <div class="card">
-        <div class="label">Avg Earned / Photo</div>
-        <div class="value">$4.57</div>
-        <div class="sub">Across all Models</div>
-      </div>
+    <div class="mega-card">
+      <div class="mega-label">Per Asset Average</div>
+      <div class="mega-value" id="avgEarnings">$0</div>
+      <div class="mega-sub">Average performance</div>
+    </div>
 
-      <div class="card">
-        <div class="label">Avg Earned / Hour of Video</div>
-        <div class="value">$1,923.94</div>
-        <div class="sub">Across all licenses</div>
-      </div>
-    </section>
+    <div class="mega-card">
+      <div class="mega-label">Total Uses</div>
+      <div class="mega-value" id="totalUses">0</div>
+      <div class="mega-sub">Across all assets</div>
+    </div>
 
-    <!-- FOOTER -->
-    <footer>
-      © 2026 Your Platform · <a href="#">Privacy</a> · <a href="#">Terms</a>
-    </footer>
+    <div class="mega-card">
+      <div class="mega-label">Top Performer</div>
+      <div class="mega-value" id="topPerformer">—</div>
+      <div class="mega-sub">Best earning asset</div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="gallery-section">
+    <div class="gallery-header">
+      <h2>Your Portfolio</h2>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="photo">Photos</button>
+        <button class="filter-tab" data-filter="video">Videos</button>
+      </div>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</div>
+```
 
   </div>
+
+  <script>
+    const storage = {
+      async get(key) {
+        try {
+          const result = await window.storage.get(key);
+          return result ? JSON.parse(result.value) : null;
+        } catch (err) {
+          return null;
+        }
+      },
+      async set(key, value) {
+        try {
+          await window.storage.set(key, JSON.stringify(value));
+        } catch (err) {
+          console.error('Save failed:', err);
+        }
+      }
+    };
+
+    let assets = [];
+    let currentFilter = 'all';
+
+    async function init() {
+      const savedAssets = await storage.get('creator-portfolio');
+      if (savedAssets && savedAssets.length > 0) {
+        assets = savedAssets;
+        showDashboard();
+      }
+
+      setupEventListeners();
+    }
+
+    function setupEventListeners() {
+      document.getElementById('upload').addEventListener('change', handleUpload);
+      document.getElementById('addMore').addEventListener('change', handleUpload);
+
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+          e.target.classList.add('active');
+          currentFilter = e.target.dataset.filter;
+          renderGallery();
+        });
+      });
+    }
+
+    async function handleUpload(e) {
+      const files = Array.from(e.target.files);
+      
+      for (const file of files) {
+        const reader = new FileReader();
+        
+        reader.onload = async (event) => {
+          const asset = {
+            id: Date.now() + Math.random(),
+            name: file.name.replace(/\.[^/.]+$/, ""),
+            type: file.type.startsWith('image/') ? 'photo' : 'video',
+            preview: event.target.result,
+            earnings: Math.floor(Math.random() * 500) + 50,
+            uses: Math.floor(Math.random() * 100) + 10,
+            uploadedAt: new Date().toISOString()
+          };
+
+          assets.push(asset);
+          await storage.set('creator-portfolio', assets);
+          
+          if (assets.length === 1) {
+            showDashboard();
+          } else {
+            updateDashboard();
+          }
+        };
+
+        reader.readAsDataURL(file);
+      }
+
+      e.target.value = '';
+    }
+
+    function showDashboard() {
+      document.getElementById('uploadState').style.display = 'none';
+      document.getElementById('dashboardState').classList.add('active');
+      
+      if (assets.length > 0 && assets[0].preview) {
+        document.getElementById('profileImage').src = assets[0].preview;
+      }
+      
+      updateDashboard();
+    }
+
+    function updateDashboard() {
+      const totalEarnings = assets.reduce((sum, a) => sum + a.earnings, 0);
+      const avgEarnings = assets.length > 0 ? totalEarnings / assets.length : 0;
+      const totalUses = assets.reduce((sum, a) => sum + a.uses, 0);
+      const topAsset = assets.reduce((top, a) => a.earnings > (top?.earnings || 0) ? a : top, null);
+
+      document.getElementById('assetCount').textContent = `${assets.length} assets in portfolio`;
+      document.getElementById('totalEarnings').textContent = `$${totalEarnings.toLocaleString()}`;
+      document.getElementById('avgEarnings').textContent = `$${Math.round(avgEarnings).toLocaleString()}`;
+      document.getElementById('totalUses').textContent = totalUses.toLocaleString();
+      document.getElementById('topPerformer').textContent = topAsset ? `$${topAsset.earnings}` : '—';
+
+      renderGallery();
+    }
+
+    function renderGallery() {
+      const grid = document.getElementById('galleryGrid');
+      const filtered = currentFilter === 'all' 
+        ? assets 
+        : assets.filter(a => a.type === currentFilter);
+
+      grid.innerHTML = filtered.map(asset => `
+        <div class="asset-card">
+          <div class="delete-icon" onclick="deleteAsset(${asset.id})">×</div>
+          <div class="asset-preview">
+            ${asset.type === 'photo' 
+              ? `<img src="${asset.preview}" alt="${asset.name}" />`
+              : `<video src="${asset.preview}" muted></video>`
+            }
+            <div class="asset-type-badge">${asset.type}</div>
+          </div>
+          <div class="asset-content">
+            <div class="asset-name">${asset.name}</div>
+            <div class="asset-stats">
+              <div class="stat-item">
+                <div class="stat-label">Earnings</div>
+                <div class="stat-value earnings">$${asset.earnings}</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Uses</div>
+                <div class="stat-value">${asset.uses}</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Per Use</div>
+                <div class="stat-value">$${(asset.earnings / asset.uses).toFixed(2)}</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Status</div>
+                <div class="stat-value" style="font-size: 1rem;">Active</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function deleteAsset(id) {
+      if (!confirm('Delete this asset?')) return;
+      
+      assets = assets.filter(a => a.id !== id);
+      await storage.set('creator-portfolio', assets);
+      
+      if (assets.length === 0) {
+        document.getElementById('uploadState').style.display = 'grid';
+        document.getElementById('dashboardState').classList.remove('active');
+      } else {
+        updateDashboard();
+      }
+    }
+
+    init();
+  </script>
+
 </body>
 </html>
