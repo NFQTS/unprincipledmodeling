@@ -15,25 +15,56 @@
   body {
     min-height: 100vh;
     font-family: 'Inter', system-ui, sans-serif;
-    background: 
-      radial-gradient(circle at 15% 15%, rgba(123,97,255,0.12), transparent 45%),
-      radial-gradient(circle at 85% 25%, rgba(0,224,255,0.10), transparent 50%),
-      #050007;
+    background: #000;
     color: #f8f9ff;
     overflow-x: hidden;
+    position: relative;
   }
 
-  /* MAGIC PORTAL - Upload Animation */
+  /* Lightweight falling stars */
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-100vh) scale(0.8);
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) scale(0.3);
+      opacity: 0;
+    }
+  }
+
+  /* Generate random stars via JS later */
+
+  /* MAGIC PORTAL */
   .magic-portal {
     position: fixed;
     inset: 0;
-    background: #030005;
+    background: rgba(0,0,0,0.98);
+    backdrop-filter: blur(8px);
     z-index: 10000;
     display: grid;
     place-items: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.7s ease;
+    transition: opacity 0.8s ease;
   }
 
   .magic-portal.visible {
@@ -43,139 +74,97 @@
 
   .portal-content {
     text-align: center;
-    position: relative;
   }
 
   .portal-title {
-    font-size: clamp(3.5rem, 10vw, 8rem);
+    font-size: clamp(3.8rem, 11vw, 9rem);
     font-weight: 900;
-    background: linear-gradient(90deg, #8b71ff, #00f0ff, #ff7bff, #8b71ff);
+    background: linear-gradient(90deg, #ffffff, #cccccc, #ffffff);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-size: 300% auto;
-    animation: shine 5s linear infinite;
-    letter-spacing: -0.04em;
-    margin-bottom: 1.2rem;
+    background-size: 200% auto;
+    animation: shine 6s linear infinite;
+    letter-spacing: -0.05em;
   }
 
   @keyframes shine {
-    to { background-position: 300% center; }
+    to { background-position: 200% center; }
   }
 
   .portal-subtitle {
-    font-size: 1.4rem;
-    color: #b0b8ff;
+    font-size: 1.5rem;
+    color: #aaaaaa;
+    margin: 1.5rem 0 4rem;
     opacity: 0.8;
-    max-width: 520px;
-    margin: 0 auto 3.5rem;
   }
 
   .progress-text {
-    font-size: 3.6rem;
+    font-size: 4.2rem;
     font-weight: 900;
-    color: white;
-    text-shadow: 0 0 40px rgba(123,97,255,0.7);
+    color: #ffffff;
+    text-shadow: 0 0 40px rgba(255,255,255,0.3);
   }
 
-  .portal-spinner {
-    width: 300px;
-    height: 300px;
-    position: relative;
-    margin: 0 auto 4rem;
-  }
-
-  .orb {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(123,97,255,0.35), rgba(0,240,255,0.25));
-    backdrop-filter: blur(24px);
-    animation: float 7s ease-in-out infinite;
-  }
-
-  .orb:nth-child(2) { animation-delay: -2.3s; background: linear-gradient(135deg, rgba(255,123,255,0.3), rgba(0,240,255,0.3)); }
-  .orb:nth-child(3) { animation-delay: -4.6s; background: linear-gradient(135deg, rgba(123,97,255,0.3), rgba(255,123,255,0.3)); }
-
-  @keyframes float {
-    0%,100% { transform: translate(0,0) scale(1); opacity: 0.45; }
-    50%     { transform: translate(60px, -80px) scale(1.18); opacity: 0.95; }
-  }
-
-  /* MAIN LAYOUT */
-  .upload-state, .dashboard-state {
-    min-height: 100vh;
-    padding: 4rem 2rem;
-    display: none;
-  }
-
+  /* UPLOAD STATE */
   .upload-state {
+    min-height: 100vh;
     display: grid;
     place-items: center;
     text-align: center;
+    padding: 2rem;
   }
 
   .upload-state h1 {
-    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-size: clamp(4rem, 10vw, 8rem);
     font-weight: 900;
-    background: linear-gradient(135deg, #ffffff, #d0d8ff, #8b71ff, #00f0ff);
+    background: linear-gradient(90deg, #ffffff, #dddddd);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 1.5rem;
-    line-height: 0.95;
+    margin-bottom: 2rem;
   }
 
   .upload-btn {
     display: inline-flex;
     align-items: center;
     gap: 1rem;
-    background: linear-gradient(135deg, #8b71ff, #00f0ff);
-    color: black;
-    font-weight: 800;
-    font-size: 1.35rem;
-    padding: 1.5rem 3.5rem;
+    background: linear-gradient(135deg, #ffffff, #cccccc);
+    color: #000;
+    font-weight: 900;
+    font-size: 1.4rem;
+    padding: 1.6rem 4rem;
     border-radius: 999px;
     border: none;
     cursor: pointer;
-    box-shadow: 0 0 50px rgba(123,97,255,0.45);
+    box-shadow: 0 0 60px rgba(255,255,255,0.2);
     transition: all 0.4s ease;
-    position: relative;
-    overflow: hidden;
   }
 
   .upload-btn:hover {
-    transform: translateY(-6px) scale(1.04);
-    box-shadow: 0 0 80px rgba(123,97,255,0.7);
-  }
-
-  .upload-btn::after {
-    content: "";
-    position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.7s ease;
-  }
-
-  .upload-btn:hover::after {
-    transform: translateX(100%);
+    transform: translateY(-6px);
+    box-shadow: 0 0 100px rgba(255,255,255,0.35);
   }
 
   input[type="file"] { display: none; }
 
   /* DASHBOARD */
+  .dashboard-state {
+    display: none;
+    min-height: 100vh;
+    padding: 5rem 2rem 2rem;
+  }
+
   .dashboard-state.active { display: block; }
 
-  .container { max-width: 1440px; margin: 0 auto; }
+  .container { max-width: 1480px; margin: 0 auto; }
 
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 2rem;
-    margin-bottom: 4rem;
+    gap: 3rem;
+    margin-bottom: 5rem;
   }
 
   .profile-section {
@@ -185,115 +174,110 @@
   }
 
   .profile-image {
-    width: 160px;
-    height: 160px;
-    border-radius: 28px;
+    width: 170px;
+    height: 170px;
+    border-radius: 32px;
     object-fit: cover;
-    border: 4px solid rgba(123,97,255,0.4);
-    box-shadow: 0 0 60px rgba(123,97,255,0.35);
+    border: 3px solid rgba(255,255,255,0.15);
+    box-shadow: 0 0 50px rgba(255,255,255,0.12);
   }
 
   .profile-info h1 {
-    font-size: 3.2rem;
+    font-size: 3.8rem;
     font-weight: 900;
-    background: linear-gradient(to right, #ffffff, #8b71ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: white;
   }
 
   .profile-info p {
-    color: #a0a8ff;
-    font-size: 1.25rem;
-    margin-top: 0.5rem;
+    color: #bbbbbb;
+    font-size: 1.3rem;
+    margin-top: 0.6rem;
   }
 
   .add-more-btn {
     background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.18);
     color: white;
-    padding: 1rem 2rem;
-    border-radius: 20px;
+    padding: 1.1rem 2.4rem;
+    border-radius: 24px;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
   }
 
   .add-more-btn:hover {
-    background: rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.15);
     transform: translateY(-3px);
   }
 
   /* STATS */
   .mega-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    margin-bottom: 5rem;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 6rem;
   }
 
   .mega-card {
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(16px);
     border-radius: 32px;
-    padding: 2.8rem;
+    padding: 3rem 2.5rem;
     border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
     transition: all 0.4s ease;
   }
 
   .mega-card:hover {
     transform: translateY(-12px);
-    box-shadow: 0 30px 90px rgba(0,0,0,0.6);
+    box-shadow: 0 20px 80px rgba(0,0,0,0.6);
   }
 
   .mega-label {
-    color: #a0a8ff;
-    font-size: 0.95rem;
+    color: #aaaaaa;
+    font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 1.2rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.3rem;
   }
 
   .mega-value {
-    font-size: 4.8rem;
+    font-size: 5.2rem;
     font-weight: 900;
-    background: linear-gradient(90deg, #ffffff, #00f0ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: white;
     line-height: 1;
   }
 
   .mega-sub {
-    color: #8088cc;
-    margin-top: 0.8rem;
+    color: #888888;
+    margin-top: 1rem;
     font-size: 1.1rem;
   }
 
   /* GALLERY */
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 3rem;
   }
 
   .asset-card {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(16px);
-    border-radius: 28px;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(12px);
+    border-radius: 32px;
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.07);
     transition: all 0.4s ease;
+    position: relative;
   }
 
   .asset-card:hover {
     transform: translateY(-12px);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
   }
 
   .asset-preview {
-    height: 260px;
-    background: linear-gradient(135deg, rgba(123,97,255,0.2), rgba(0,240,255,0.15));
+    height: 280px;
+    background: #111;
   }
 
   .asset-preview img, .asset-preview video {
@@ -303,59 +287,54 @@
   }
 
   .asset-content {
-    padding: 1.8rem;
+    padding: 2rem;
   }
 
   .asset-name {
-    font-size: 1.45rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.6rem;
   }
 
   .asset-stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
+    gap: 1.4rem;
   }
 
   .stat-item {
-    background: rgba(255,255,255,0.04);
+    background: rgba(255,255,255,0.03);
     border-radius: 16px;
-    padding: 1.2rem;
+    padding: 1.3rem;
     text-align: center;
     border: 1px solid rgba(255,255,255,0.06);
   }
 
   .stat-label {
-    color: #a0a8ff;
-    font-size: 0.8rem;
+    color: #aaaaaa;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.6rem;
   }
 
   .stat-value {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 800;
-  }
-
-  .stat-value.earnings {
-    background: linear-gradient(90deg, #00f0ff, #8b71ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: white;
   }
 
   .delete-icon {
     position: absolute;
-    top: 1.2rem;
-    left: 1.2rem;
-    width: 44px;
-    height: 44px;
-    background: rgba(255,60,60,0.3);
-    backdrop-filter: blur(12px);
-    border-radius: 14px;
-    color: #ff7777;
-    font-size: 1.8rem;
+    top: 1.5rem;
+    left: 1.5rem;
+    width: 48px;
+    height: 48px;
+    background: rgba(255,60,60,0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    color: #ff8888;
+    font-size: 2rem;
     font-weight: bold;
     display: grid;
     place-items: center;
@@ -365,8 +344,8 @@
   }
 
   .delete-icon:hover {
-    background: rgba(255,60,60,0.6);
-    transform: scale(1.15);
+    background: rgba(255,60,60,0.55);
+    transform: scale(1.12);
   }
 
   @media (max-width: 900px) {
@@ -378,16 +357,14 @@
 </head>
 <body>
 
-  <!-- MAGIC PORTAL OVERLAY -->
+  <!-- Falling stars container -->
+  <div class="stars" id="stars"></div>
+
+  <!-- MAGIC PORTAL -->
   <div id="magicPortal" class="magic-portal">
     <div class="portal-content">
-      <div class="portal-spinner">
-        <div class="orb"></div>
-        <div class="orb"></div>
-        <div class="orb"></div>
-      </div>
-      <h1 class="portal-title">Building Your Empire...</h1>
-      <p class="portal-subtitle">Analyzing aesthetic • Extracting vibe • Unlocking potential</p>
+      <h1 class="portal-title">Forging Your Legacy...</h1>
+      <p class="portal-subtitle">Scanning essence • Aligning stars • Activating presence</p>
       <div class="progress-text" id="progressText">0%</div>
     </div>
   </div>
@@ -395,9 +372,9 @@
   <!-- UPLOAD STATE -->
   <div class="upload-state" id="uploadState">
     <div>
-      <h1>Own Your Presence.</h1>
+      <h1>Claim Your Stars</h1>
       <label for="upload" class="upload-btn">
-        <span style="font-size:1.6rem;">✨</span> Upload Your Assets
+        <span style="font-size:1.8rem;">✨</span> Upload Your Assets
       </label>
       <input id="upload" type="file" accept="image/*,video/*" multiple />
     </div>
@@ -411,8 +388,8 @@
         <div class="profile-section">
           <img id="profileImage" class="profile-image" src="" alt="Profile" />
           <div class="profile-info">
-            <h1 id="creatorName">Your Empire</h1>
-            <p id="assetCount">0 assets • Ready to scale</p>
+            <h1 id="creatorName">Your Constellation</h1>
+            <p id="assetCount">0 assets • The void awaits</p>
           </div>
         </div>
         <label for="addMore" class="add-more-btn">+ Add More</label>
@@ -438,7 +415,7 @@
         <div class="mega-card">
           <div class="mega-label">Top Performer</div>
           <div class="mega-value" id="topPerformer">—</div>
-          <div class="mega-sub">Strongest asset</div>
+          <div class="mega-sub">Strongest signal</div>
         </div>
       </div>
 
@@ -447,9 +424,23 @@
   </div>
 
 <script>
-// --------------------------
-//   STORAGE & DATA
-// --------------------------
+// Falling stars (lightweight)
+function createStars() {
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 60; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 3 + 1;
+    star.style.width = star.style.height = `${size}px`;
+    star.style.left = `${Math.random() * 100}vw`;
+    star.style.animationDuration = `${Math.random() * 12 + 8}s`;
+    star.style.animationDelay = `${Math.random() * 10}s`;
+    starsContainer.appendChild(star);
+  }
+}
+createStars();
+
+// Storage & Data
 const storage = {
   async get(key) {
     try {
@@ -462,52 +453,39 @@ const storage = {
   async set(key, value) {
     try {
       await window.storage?.set(key, JSON.stringify(value));
-    } catch (e) {
-      console.warn('Storage save failed', e);
-    }
+    } catch (e) {}
   }
 };
 
 let assets = [];
-let currentFilter = 'all';
 
-// --------------------------
-//   INIT & LISTENERS
-// --------------------------
+// Init & Listeners
 async function init() {
   const saved = await storage.get('creator-portfolio');
   if (saved?.length) {
     assets = saved;
     showDashboard();
   }
-  setupListeners();
-}
-
-function setupListeners() {
   document.getElementById('upload').addEventListener('change', handleUpload);
   document.getElementById('addMore').addEventListener('change', handleUpload);
 }
 
-// --------------------------
-//   MAGIC UPLOAD FLOW
-// --------------------------
+// Magic Upload Flow
 async function handleUpload(e) {
   const files = [...e.target.files];
   if (!files.length) return;
 
-  // Show magic portal
   const portal = document.getElementById('magicPortal');
   const progressEl = document.getElementById('progressText');
   portal.classList.add('visible');
 
   let progress = 0;
   const interval = setInterval(() => {
-    progress += Math.random() * 7 + 5;
+    progress += Math.random() * 6 + 4;
     if (progress > 99) progress = 99;
     progressEl.textContent = `${Math.floor(progress)}%`;
-  }, 90);
+  }, 100);
 
-  // Process files
   for (const file of files) {
     await new Promise(resolve => {
       const reader = new FileReader();
@@ -517,8 +495,8 @@ async function handleUpload(e) {
           name: file.name.replace(/\.[^/.]+$/, ""),
           type: file.type.startsWith('image/') ? 'photo' : 'video',
           preview: ev.target.result,
-          earnings: Math.floor(Math.random() * 3800) + 120,
-          uses: Math.floor(Math.random() * 480) + 25,
+          earnings: 0,
+          uses: 0,
           uploadedAt: new Date().toISOString()
         });
         resolve();
@@ -527,26 +505,20 @@ async function handleUpload(e) {
     });
   }
 
-  // Finish animation
-  await new Promise(r => setTimeout(r, 2200 + Math.random() * 1800));
+  await new Promise(r => setTimeout(r, 2400 + Math.random() * 1600));
   clearInterval(interval);
   progressEl.textContent = '100%';
-  await new Promise(r => setTimeout(r, 800));
+  await new Promise(r => setTimeout(r, 900));
 
-  // Transition out
   portal.classList.remove('visible');
   setTimeout(() => {
-    portal.classList.remove('visible'); // just in case
     showDashboard();
     storage.set('creator-portfolio', assets);
-  }, 900);
+  }, 1000);
 
   e.target.value = '';
 }
 
-// --------------------------
-//   UI UPDATE FUNCTIONS
-// --------------------------
 function showDashboard() {
   document.getElementById('uploadState').style.display = 'none';
   document.getElementById('dashboardState').classList.add('active');
@@ -564,7 +536,7 @@ function updateDashboard() {
   const uses = assets.reduce((s, a) => s + a.uses, 0);
   const top = assets.reduce((best, a) => a.earnings > (best?.earnings ?? 0) ? a : best, null);
 
-  document.getElementById('assetCount').textContent = `${assets.length} assets • Ready to scale`;
+  document.getElementById('assetCount').textContent = `${assets.length} asset${assets.length !== 1 ? 's' : ''} • The void awaits`;
   document.getElementById('totalEarnings').textContent = `$${total.toLocaleString()}`;
   document.getElementById('avgEarnings').textContent = `$${avg.toLocaleString()}`;
   document.getElementById('totalUses').textContent = uses.toLocaleString();
@@ -575,11 +547,7 @@ function updateDashboard() {
 
 function renderGallery() {
   const grid = document.getElementById('galleryGrid');
-  const filtered = currentFilter === 'all' 
-    ? assets 
-    : assets.filter(a => a.type === currentFilter);
-
-  grid.innerHTML = filtered.map(asset => `
+  grid.innerHTML = assets.map(asset => `
     <div class="asset-card">
       <div class="delete-icon" onclick="deleteAsset(${asset.id})">×</div>
       <div class="asset-preview">
@@ -593,7 +561,7 @@ function renderGallery() {
         <div class="asset-stats">
           <div class="stat-item">
             <div class="stat-label">Earnings</div>
-            <div class="stat-value earnings">$${asset.earnings.toLocaleString()}</div>
+            <div class="stat-value">$${asset.earnings.toLocaleString()}</div>
           </div>
           <div class="stat-item">
             <div class="stat-label">Uses</div>
@@ -601,11 +569,11 @@ function renderGallery() {
           </div>
           <div class="stat-item">
             <div class="stat-label">Per Use</div>
-            <div class="stat-value">$${(asset.earnings / asset.uses).toFixed(2)}</div>
+            <div class="stat-value">$${asset.uses ? (asset.earnings / asset.uses).toFixed(2) : '0.00'}</div>
           </div>
           <div class="stat-item">
             <div class="stat-label">Status</div>
-            <div class="stat-value" style="color:#00ffaa;">Active</div>
+            <div class="stat-value" style="color:#88ffaa;">Active</div>
           </div>
         </div>
       </div>
